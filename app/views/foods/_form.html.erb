@@ -1,0 +1,22 @@
+<h2>Add New Food</h2>
+
+<%= form_tag foods_path do %>
+    <div class="field">
+        <%= label_tag :name, "Name" %>
+        <%= text_field_tag :name %>
+    </div>
+
+    <div class="field">
+        <%= label_tag :measurement_unit, "Measurement Unit" %>
+        <%= text_field_tag :measurement_unit %>
+    </div>
+
+    <div class="field">
+        <%= label_tag :price, "Unit Price" %>
+        <%= text_field_tag :price %>
+    </div>
+    
+    <div class="actions">
+        <%= submit_tag "Submit Food" %>
+    </div>
+<% end %>
