@@ -1,0 +1,58 @@
+<h3>Recipe Details</h3>
+<h3><%= @recipe.name %></h3>
+<section>
+  <div>
+    <p>Preparation time: <%= @recipe.preparation_time %> mins</p>
+    <p>Cooking time: <%= @recipe.cooking_time %> mins</p>
+  </div>
+  <%= form_for @recipe, url: public_toggle_new_recipe_path(@recipe), method: :patch, remote: true, authenticity_token: true do |f| %>
+    <div>
+      <span>Public</span>
+      <label>
+        <%= f.check_box :public %>
+        <span></span>
+      </label>
+    </div>
+    <%= f.hidden_field :public, value: @recipe.public ? 0 : 1 %>
+    <%= f.submit 'Toggle', style: 'display: none;' %>
+  <% end %>
+</section>
+<p><%= @recipe.description %></p>
+<div>
+  <%= link_to "Generate Shopping List", general_shopping_list_recipe_path(@recipe), method: :post %>
+  <%= link_to "Add Ingredient", new_recipe_recipe_food_path(@recipe), method: :get %>
+</div>
+<% if @recipe_foods.empty? %>
+  <h2>You have no food ingredients yet. Click on "Add Ingredient" to add to the list.</h2>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>Food</th>
+        <th>Quantity</th>
+        <th>Value</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @recipe_foods.each do |recipe_food| %>
+        <tr>
+          <td><%= recipe_food.food.name %></td>
+          <td><%= recipe_food.quantity %></td>
+          <td><%= recipe_food.food.price %></td>
+          <td>
+            <%= link_to 'Delete', recipe_food_path(recipe_food), method: :delete, data: { confirm: 'Are you sure?' } %>
+            <button class="modify-button">Modify</button>
+            <div class="modify-form" style="display: none;">
+              <%= form_for recipe_food, url: modify_recipe_food_path(recipe_food), method: :patch, remote: true, authenticity_token: true do |f| %>
+                <%= f.label :quantity %>
+                <%= f.text_field :quantity, value: recipe_food.quantity %>
+                <%= f.submit 'Update' %>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

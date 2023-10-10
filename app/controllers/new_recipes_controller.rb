@@ -1,6 +1,6 @@
 class NewRecipesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_recipe, only: [:show, :edit, :update, :destroy]
+  before_action :set_recipe, only: %i[show edit update destroy]
 
   def index
     @recipes = NewRecipe.where(user_id: current_user.id)
@@ -10,21 +10,19 @@ class NewRecipesController < ApplicationController
     @recipe = NewRecipe.new
   end
 
-  def show
-  end
+  def show; end
 
   def create
     @recipe = current_user.new_recipes.new(recipe_params)
 
     if @recipe.save
-    redirect_to new_recipes_path, notice: 'The recipe was successfully created.'
-  else
-    render :new, alert: 'The recipe was not created.'
-  end
+      redirect_to new_recipes_path, notice: 'The recipe was successfully created.'
+    else
+      render :new, alert: 'The recipe was not created.'
+    end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @recipe.update(recipe_params)
