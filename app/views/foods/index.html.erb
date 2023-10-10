@@ -1,0 +1,32 @@
+<h3><%= link_to 'Add food', new_food_path %></h3>
+
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <% if @foods.empty? %>
+      <h3>There are no food yet.</h3>
+    <% else %>
+      <thead class="thead-dark">
+        <tr>
+          <th>Name</th>
+          <th>Measurement Unit</th>
+          <th>Unit Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @foods.each do |food| %>
+          <tr>
+            <td><%= food.name %></td>
+            <td><%= food.measurement_unit %></td>
+            <td><%= food.price %></td>
+            <td>
+              <%= link_to 'Show', food, class: 'btn btn-info btn-sm' %>
+              <%= link_to 'Edit', edit_food_path(food), class: 'btn btn-primary btn-sm' %>
+              <%= link_to 'Destroy', food, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    <% end %>
+  </table>
+</div>
