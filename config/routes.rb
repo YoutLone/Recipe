@@ -1,15 +1,22 @@
 Rails.application.routes.draw do
   devise_for :users
-  root "foods#index"
-  get "/public_recipes", to: "recipes#public_recipes"
-  get '/shopping_list', to: 'shopping_list#index', as: 'shopping_list'
-  post 'toggle_public', to: 'recipes#toggle', as: 'toggle_public'
-  resources :users do
-  resources :recipes, only: %i[index show new create destroy] do
-    resources :recipe_foods, only: %i[create destroy]
+
+  root 'welcome#index'
+
+  resources :users, only: [:index, :show] do
+    resources :new_recipes, only: [:index, :show, :new, :create, :destroy]
+  end
+
+  resources :foods
+  resources :recipe_foods, only: [:create, :destroy]
+
+  resources :new_recipes do
+    resources :recipe_foods, only: [:index, :create, :destroy]
+  end
+
+  resources :new_recipes do
+  member do
+    patch 'public_toggle'
   end
 end
-  resources :foods, only: %i[index show new create destroy] do
-  resources :recipe_foods, only: %i[create destroy]
-  end
 end

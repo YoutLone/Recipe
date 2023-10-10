@@ -1,0 +1,26 @@
+<h1>New Recipe</h1>
+<%= form_with(model: [current_user, @recipe], url: user_new_recipes_path(current_user), local: true) do |form| %>
+  <div class="form-group">
+    <%= form.label :name, "Recipe Name" %>
+    <%= form.text_field :name, class: "form-control", required: true %>
+  </div>
+  <div class="form-group">
+    <%= form.label :preparation_time, "Preparation Time (minutes)" %>
+    <%= form.number_field :preparation_time, class: "form-control", required: true, min: 0 %>
+  </div>
+  <div class="form-group">
+    <%= form.label :cooking_time, "Cooking Time (minutes)" %>
+    <%= form.number_field :cooking_time, class: "form-control", required: true, min: 0 %>
+  </div>
+  <div class="form-group">
+    <%= form.label :description, "Description" %>
+    <%= form.text_area :description, class: "form-control", required: true %>
+  </div>
+  <div class="form-group">
+    <%= form.label :public %>
+    <%= form.check_box :public %>
+  </div>
+  <%= form.hidden_field :user_id, value: current_user.id %>
+  <%= form.submit "Create Recipe", class: "btn btn-primary" %>
+<% end %>
+<%= link_to "Back", user_new_recipes_path(current_user), class: "btn btn-secondary" %>
