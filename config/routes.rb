@@ -1,10 +1,22 @@
 Rails.application.routes.draw do
   devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  devise_scope :user do 
-    get '/users/sign_out' => 'devise/sessions#destroy' 
+
+  root 'welcome#index'
+
+  resources :users, only: [:index, :show] do
+    resources :new_recipes, only: [:index, :show, :new, :create, :destroy]
   end
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  resources :foods
+  resources :recipe_foods, only: [:create, :destroy]
+
+  resources :new_recipes do
+    resources :recipe_foods, only: [:index, :create, :destroy]
+  end
+
+  resources :new_recipes do
+  member do
+    patch 'public_toggle'
+  end
+end
 end
