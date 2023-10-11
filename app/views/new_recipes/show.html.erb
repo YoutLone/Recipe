@@ -1,58 +1,83 @@
-<h3>Recipe Details</h3>
-<h3><%= @recipe.name %></h3>
-<section>
-  <div>
-    <p>Preparation time: <%= @recipe.preparation_time %> mins</p>
-    <p>Cooking time: <%= @recipe.cooking_time %> mins</p>
-  </div>
-  <%= form_for @recipe, url: public_toggle_new_recipe_path(@recipe), method: :patch, remote: true, authenticity_token: true do |f| %>
-    <div>
-      <span>Public</span>
-      <label>
-        <%= f.check_box :public %>
-        <span></span>
-      </label>
-    </div>
-    <%= f.hidden_field :public, value: @recipe.public ? 0 : 1 %>
-    <%= f.submit 'Toggle', style: 'display: none;' %>
-  <% end %>
-</section>
-<p><%= @recipe.description %></p>
-<div>
-  <%= link_to "Generate Shopping List", general_shopping_list_recipe_path(@recipe), method: :post %>
-  <%= link_to "Add Ingredient", new_recipe_recipe_food_path(@recipe), method: :get %>
-</div>
-<% if @recipe_foods.empty? %>
-  <h2>You have no food ingredients yet. Click on "Add Ingredient" to add to the list.</h2>
-<% else %>
-  <table>
-    <thead>
-      <tr>
-        <th>Food</th>
-        <th>Quantity</th>
-        <th>Value</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @recipe_foods.each do |recipe_food| %>
-        <tr>
-          <td><%= recipe_food.food.name %></td>
-          <td><%= recipe_food.quantity %></td>
-          <td><%= recipe_food.food.price %></td>
-          <td>
-            <%= link_to 'Delete', recipe_food_path(recipe_food), method: :delete, data: { confirm: 'Are you sure?' } %>
-            <button class="modify-button">Modify</button>
-            <div class="modify-form" style="display: none;">
-              <%= form_for recipe_food, url: modify_recipe_food_path(recipe_food), method: :patch, remote: true, authenticity_token: true do |f| %>
-                <%= f.label :quantity %>
-                <%= f.text_field :quantity, value: recipe_food.quantity %>
-                <%= f.submit 'Update' %>
+<div class="container">
+      <div class="block rounded-lg shadow-lg bg-white p-6 md:p-12 mt-2">
+        <div class="mb-6 text-center mt-2">
+          <strong>Recipe Name: </strong><%= @recipe.name  %>
+        </div>
+        <div class="flex justify-end mb-6">
+        <div class="mr-5">
+          <strong>Public:</strong>
+        </div>
+        <div class="form-check form-switch">
+          <% if can? :manage, @recipe %>
+            <%= button_to toggle_public_path(id: @recipe.id), method: :post, data: { turbo: false }, class: "form-check-input" do %>
+              <% if @recipe.public %>
+                <input type="checkbox" id="toggle-example-checked" class="form-check-input" checked>
+              <% else %>
+                <input type="checkbox" id="toggle-example" class="form-check-input">
               <% end %>
-            </div>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+        <div class="mb-6">Preparation time: <%= @recipe.preparation_time %> hours</div>
+        <div class="mb-6">Cooking time: <%= @recipe.cooking_time %> hours</div>
+        <div class="mb-6">Steps go here...</div>
+        <div class="flex flex-row mb-6">
+          <div class="flex gap-6">
+            <% if @recipe.user_id == current_user.id %>
+              <div class="flex items-center gap-6 my-5 pb-4">
+                <%= link_to 'Generate shopping list', shopping_list_path, class: "btn btn-primary" %>
+                <%= render 'ingredient' %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="mb-6">
+          <strong>Description: </strong>
+          <p><%= @recipe.description %></p>
+        </div>
+      </div>
+      <div class="bg-white shadow-md rounded my-6">
+        <table class="min-w-max w-full table-auto">
+          <thead>
+            <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+              <th class="py-3 px-6 text-left">Food</th>
+              <th class="py-3 px-6 text-left">Quantity</th>
+              <th class="py-3 px-6 text-left">Value</th>
+              <th class="py-3 px-6 text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody class="text-gray-600 text-sm font-light">
+            <% @recipe.recipe_foods.each do |recipe| %>
+              <tr class="border-b border-gray-200 hover:bg-gray-100">
+                <td class="py-3 px-6 text-left whitespace-nowrap">
+                  <div class="flex items-center">
+                    <%= recipe.food.name %>
+                  </div>
+                </td>
+                <td class="py-3 px-6 text-left">
+                  <div class="flex items-center">
+                    <%= recipe.quantity %>
+                  </div>
+                </td>
+                <td class="py-3 px-6 text-left">
+                  <div class="flex items-center">
+                    <%= number_to_currency recipe.quantity * recipe.food.price %>
+                  </div>
+                </td>
+                <td class="py-3 px-6 text-center">
+                  <div class="flex item-center justify-center">
+                    <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                      <% if current_user.id == recipe.recipe.user_id %>
+                        <%= button_to user_recipe_recipe_food_path(current_user, @recipe, recipe), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" do %>
+                        <% end %>
+                      <% end %>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+  </div>
+</div>
