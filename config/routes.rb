@@ -3,10 +3,18 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
   get '/shopping_list', to: 'shopping_list#index', as: 'shopping_list'
+  post 'toggle_public', to: 'recipes#toggle', as: 'toggle_public'
 
   resources :users, only: [:index, :show] do
     resources :new_recipes, only: [:index, :show, :new, :create, :destroy]
   end
+
+  resources :users do
+    resources :new_recipes do
+      resources :recipe_foods
+    end
+  end  
+  
 
   resources :foods
   resources :recipe_foods, only: [:create, :destroy]

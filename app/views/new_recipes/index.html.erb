@@ -1,9 +1,43 @@
-<h1>Recipes</h1>
-<% @recipes.each do |recipe| %>
-  <div class="recipe">
-    <h2><%= link_to recipe.name, recipe %></h2>
-    <p><%= recipe.description %></p>
-    <%= link_to "Remove", recipe, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <%= link_to  "Create new Recipe", new_user_new_recipe_path(current_user), class: "btn btn-danger mb-4" %> 
+      <div class="card">
+        <div class="card-body">
+          <table class="table">
+            <thead>     
+              <tr class="bg-light text-dark">
+                <th class="py-3 px-6 text-left">Recipe</th>
+                <th class="py-3 px-6 text-left">Description</th>
+                <th class="py-3 px-6 text-center">Action</th>
+              </tr> 
+            </thead>
+            <tbody class="text-gray-600 text-sm font-light">
+            <% @recipes.each do |recipe| %>
+              <tr>
+                <td class="py-3 px-6 text-left">
+                  <div class="flex items-center">
+                    <span class="text-gray-900 text-xl leading-tight font-medium">
+                      <%= link_to recipe.name, user_new_recipe_path(current_user, recipe), class: "text-primary" %>
+                    </span>
+                  </div>
+                </td>
+                <td class="py-3 px-6 text-left">
+                  <div class="flex items-center">
+                    <span class="badge bg-success"><%= recipe.description %></span>
+                  </div>
+                </td>
+                <td class="py-3 px-6 text-center">
+                  <%= button_to user_new_recipe_path(current_user, recipe), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" do %>
+                    Remove
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
-<% end %>
-<%= link_to "New Recipe", new_user_new_recipe_path(current_user), class: "btn btn-primary" %>
+</div>
