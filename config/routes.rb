@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   root 'welcome#index'
+  get '/shopping_list', to: 'shopping_list#index', as: 'shopping_list'
 
   resources :users, only: [:index, :show] do
     resources :new_recipes, only: [:index, :show, :new, :create, :destroy]

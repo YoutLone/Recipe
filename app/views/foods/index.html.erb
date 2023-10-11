@@ -1,29 +1,36 @@
-<%= link_to 'Add food', new_food_path, class: 'btn btn-primary mt-5 ms-5' %>
-<div class="table-responsive">
-  <table class="table table-bordered mt-3">
-    <% if @foods.empty? %>
-      <h3 class="nofo">There are no food yet...</h3>
-    <% else %>
-      <thead class="thead-dark">
-        <tr>
-          <th>Name</th>
-          <th>Measurement Unit</th>
-          <th>Unit Price</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @foods.each do |food| %>
-          <tr>
-            <td><%= food.name %></td>
-            <td><%= food.measurement_unit %></td>
-            <td><%= food.price %></td>
-            <td>
-              <%= link_to 'Delete', food, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    <% end %>
-  </table>
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-lg-10">
+      <%= link_to 'Add new food', new_food_path, class: "btn btn-success mb-4" %>
+      <div class="card">
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr class="bg-light">
+                <th scope="col">Food</th>
+                <th scope="col">Unit</th>
+                <th scope="col" class="text-center">Price</th>
+                <th scope="col" class="text-center">Quantity</th>
+                <th scope="col" class="text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @foods.each do |food| %>
+                <tr>
+                  <td><%= food.name %></td>
+                  <td><span class="badge bg-success"><%= food.measurement_unit %></span></td>
+                  <td class="text-center"><%= number_to_currency(food.price) %></td>
+                  <td class="text-center"><%= food.quantity %></td>
+                  <td class="text-center">
+                    <%= button_to food, method: :delete, class: "btn btn-sm btn-outline-danger" do %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
