@@ -5,36 +5,36 @@
   <% sum += item.food.price %>
   <% count += 1 %>
 <% end %>
-<div class="container mx-auto overflow-x-auto">
-  <div class="min-w-screen min-h-screen bg-gray-100 flex pt-10 justify-center font-sans">
-    <div class="w-full lg:w-5/6">
-      <h3 class='font-bold text-gray-400'>Amount of food items to buy: <%= count %></h3>
-      <h3 class='font-bold text-gray-400'>Total value of food needed: <%= number_to_currency(sum) %></h3>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <h3 class="font-bold text-gray-400">Amount of food items to buy: <%= count %></h3>
+      <h3 class="font-bold text-gray-400">Total value of food needed: <%= number_to_currency(sum) %></h3>
       <div class="bg-white shadow-md rounded my-6">
-        <table class="min-w-max w-full table-auto">
-          <thead>
-            <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+        <table class="table">
+          <thead class="bg-gray-200 text-gray-600">
+            <tr>
               <th class="py-3 px-6 text-left">Food</th>
               <th class="py-3 px-6 text-center">Quantity</th>
               <th class="py-3 px-6 text-center">Price</th>
             </tr>
           </thead>
-          <tbody class="text-gray-600 text-sm font-light">
+          <tbody class="text-gray-600">
             <% @items.each do |item| %>
-              <tr class="border-b border-gray-200 hover:bg-gray-100">
-                <td class="py-3 px-6 text-left whitespace-nowrap">
-                  <div class="flex items-center">
-                    <span class="font-medium"><%= item.food.name %></span>
+              <tr class="border-bottom border-gray-200">
+                <td class="py-3 px-6 text-left">
+                  <div class="d-flex align-items-center">
+                    <span class="font-medium"><%= item['name'] %></span>
                   </div>
                 </td>
                 <td class="py-3 px-6 text-center">
-                  <div class="flex items-center justify-center">
-                    <span class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs"><%= item['quantity'] %> <%= item['food.measurement_unit'] %></span>
+                  <div class="d-flex justify-content-center">
+                    <span class="bg-success text-white py-1 px-3 rounded-full text-xs"><%= item['quantity'] %> <%= item['measurement_unit'] %></span>
                   </div>
                 </td>
                 <td class="py-3 px-6 text-center">
-                  <div class="flex items-center justify-center">
-                    <%= number_to_currency(item.food.price) %>
+                  <div class="d-flex justify-content-center">
+                    <%= number_to_currency(item['total_price']) %>
                   </div>
                 </td>
               </tr>
