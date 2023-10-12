@@ -1,0 +1,18 @@
+<div class="container mt-4">
+  <div class="card p-4 mb-4 shadow">
+    <h3 class="mb-4 text-xl font-medium text-gray-900">Modify Ingredient</h3>
+    <%= form_for(@recipe_food, url: user_new_recipe_recipe_food_path(current_user, @recipe, @recipe_food), method: :patch) do |f| %>
+      <div class="mb-3">
+        <%= f.label :food_id, "Food", class: "form-label" %>
+        <%= f.select :food_id, current_user.foods.map { |food| [food.name, food.id] }, {}, class: "form-select" %>
+      </div>
+      <div class="mb-3">
+        <%= f.label :quantity, "Quantity", class: "form-label" %>
+        <%= f.number_field :quantity, class: "form-control" %>
+      </div>
+      <div class="text-center">
+        <%= f.submit "Update ingredient", class: "btn btn-success w-100" %>
+      </div>
+    <% end %>
+  </div>
+</div>
