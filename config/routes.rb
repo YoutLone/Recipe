@@ -35,10 +35,4 @@ Rails.application.routes.draw do
       resources :recipe_foods, only: [:create, :destroy, :edit, :update]
     end
   end
-
-  resources :new_recipes do
-  member do
-    patch 'public_toggle'
-  end
-end
 end
