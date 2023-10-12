@@ -22,7 +22,8 @@ RSpec.feature 'NewRecipes', type: :feature do
   end
 
   scenario 'User updates a recipe' do
-    recipe = NewRecipe.create(name: 'Test Recipe', preparation_time: 30, cooking_time: 45, description: 'A delicious recipe', public: true, user: user)
+    recipe = NewRecipe.create(name: 'Test Recipe', preparation_time: 30, cooking_time: 45,
+                              description: 'A delicious recipe', public: true, user:)
 
     visit edit_recipe_path(recipe)
 
@@ -33,7 +34,8 @@ RSpec.feature 'NewRecipes', type: :feature do
   end
 
   scenario 'User views a recipe' do
-    recipe = NewRecipe.create(name: 'Test Recipe', preparation_time: 30, cooking_time: 45, description: 'A delicious recipe', public: true, user: user)
+    recipe = NewRecipe.create(name: 'Test Recipe', preparation_time: 30, cooking_time: 45,
+                              description: 'A delicious recipe', public: true, user:)
 
     visit recipe_path(recipe)
 

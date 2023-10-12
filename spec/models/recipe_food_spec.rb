@@ -8,7 +8,8 @@ RSpec.describe RecipeFood, type: :model do
 
     @food = Food.create(name: 'Test Food', measurement_unit: 'grams', price: 5.99, quantity: 10, user: @user)
 
-    @recipe = NewRecipe.create(name: 'Test Recipe', preparation_time: 30, cooking_time: 45, description: 'A delicious recipe', public: true, user: @user)
+    @recipe = NewRecipe.create(name: 'Test Recipe', preparation_time: 30, cooking_time: 45,
+                               description: 'A delicious recipe', public: true, user: @user)
   end
 
   let(:recipe_food) { RecipeFood.new(food: @food, new_recipe: @recipe, quantity: 2) }
