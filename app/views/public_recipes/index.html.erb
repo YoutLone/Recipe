@@ -1,0 +1,20 @@
+<div class="container text-center mt-5">
+  <div class="container p-4 bg-light rounded shadow">
+    <h1>Public Recipes</h1>
+    <% @public_recipes.each do |recipe| %>
+      <div class="recipe my-4 p-3 bg-light d-flex">
+        <div class="name flex-grow-1">
+          <h2><%= link_to "#{recipe.name}", recipe %></h2>
+          <p class="mb-0"><%= "By: #{recipe.user.name}" %></p>
+        </div>
+        <div class="items">
+          <% @recipe_foods = RecipeFood.joins(food: :user, new_recipe: :user).where(foods: { user_id: recipe.user_id }, new_recipes: { user_id: recipe.user_id }) %>
+          <% @total_items = @recipe_foods.where(recipe_id: recipe.id).count %>
+          <% @total_cost = @recipe_foods.where(recipe_id: recipe.id).sum('foods.quantity * foods.price') %>
+          <p class="mb-0">Total Food Items: <%= @total_items.size %></p>
+          <p>Total Price: <%= number_to_currency @total_cost.size %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
