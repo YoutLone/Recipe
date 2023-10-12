@@ -25,7 +25,7 @@ RSpec.feature 'PublicRecipes', type: :feature do
 
     visit public_recipes_path
   end
-  scenario 'User sees recipe table to display only the "Public Recipes"' do
+  scenario 'User sees Public when It is "Public Recipes"' do
     expect(page).to have_content('Public Recipes')
   end
   scenario 'User sees recipe table to display only the "Delicious Recipe"' do
