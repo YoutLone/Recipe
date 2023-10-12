@@ -1,6 +1,5 @@
 class PublicRecipesController < ApplicationController
   def index
-    @users = User.all
-    @recipes = Recipe.includes([:user]).where(public: true)
+    @public_recipes = NewRecipe.where(public: true)
   end
 end
