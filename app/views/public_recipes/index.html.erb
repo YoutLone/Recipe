@@ -8,12 +8,12 @@
           <p class="mb-0"><%= "By: #{recipe.user.name}" %></p>
         </div>
         <div class="items">
-          <% @recipe_foods = RecipeFood.joins(food: :user, new_recipe: :user).where(foods: { user_id: recipe.user_id }, new_recipes: { user_id: recipe.user_id }) %>
-          <% @total_items = @recipe_foods.where(recipe_id: recipe.id).count %>
-          <% @total_cost = @recipe_foods.where(recipe_id: recipe.id).sum('foods.quantity * foods.price') %>
-          <p class="mb-0">Total Food Items: <%= @total_items.size %></p>
-          <p>Total Price: <%= number_to_currency @total_cost.size %></p>
-        </div>
+        <% @recipe_foods = RecipeFood.joins(food: [:user], new_recipe: [:user]).where(foods: { user_id: recipe.user_id }, new_recipes: { user_id: recipe.user_id }) %>
+        <% @total_items = @recipe_foods.where(recipe_id: recipe.id).count %>
+        <% @total_cost = @recipe_foods.where(recipe_id: recipe.id).sum('foods.quantity * foods.price') %>
+        <p class="mb-0">Total Food Items: <%= @total_items %></p>
+        <p>Total Price: <%= number_to_currency @total_cost %></p>
+      </div>
       </div>
     <% end %>
   </div>
