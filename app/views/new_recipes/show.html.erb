@@ -9,15 +9,14 @@
         </div>
         <div class="form-check form-switch me-5">
           <% if can? :manage, @recipe %>
-            <%= button_to make_public_user_new_recipe_path(id: @recipe), method: :post, data: { turbo: false }, class: "toggle-button" do %>
-
-              <% if @recipe.public %>
-                <input type="checkbox" id="toggle-example-checked" class="form-check-input" checked>
-              <% else %>
-                <input type="checkbox" id="toggle-example" class="form-check-input">
-              <% end %>
+          <%= button_to make_public_user_new_recipe_path(user_id: @recipe.user_id, id: @recipe.id), method: :post, data: { turbo: false }, class: "toggle-button" do %>
+            <% if @recipe.public %>
+              <input type="checkbox" id="toggle-example-checked" class="form-check-input" checked>
+            <% else %>
+              <input type="checkbox" id="toggle-example-checked" class="form-check-input">
             <% end %>
           <% end %>
+            <% end %>
         </div>
       </div>
         <div class="mb-6 ms-5">Preparation time: <%= @recipe.preparation_time %> hours</div>
@@ -89,3 +88,6 @@
     </div>
   </div>
 </div>
+
+
+
