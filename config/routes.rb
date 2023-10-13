@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
   get '/shopping_list', to: 'shopping_list#index', as: 'shopping_list'
   get 'public_recipes', to: 'public_recipes#index'
-  post 'toggle_public', to: 'recipes#toggle', as: 'toggle_public'
+  # post 'toggle_public', to: 'recipes#toggle', as: 'toggle_public'
 
   resources :users, only: [:index, :show] do
     resources :new_recipes, only: [:index, :show, :new, :create, :destroy]
@@ -32,7 +32,10 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :new_recipes do
-      resources :recipe_foods, only: [:create, :destroy, :edit, :update]
+      member do
+    post 'make_public'
+  end
+      resources :recipe_foods, only: [:new, :create, :destroy, :edit, :update]
     end
   end
 end

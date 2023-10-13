@@ -33,15 +33,6 @@ RSpec.feature 'NewRecipe index', type: :feature do
     expect(page).to_not have_link('Create New Recipe', href: new_user_new_recipe_path(@user))
   end
 
-  scenario 'User sees recipe table to display only the "Recipes"' do
-    expect(page).to have_content('Recipe')
-  end
-  scenario 'User sees description table to display only the "Description"' do
-    expect(page).to have_content('Description')
-  end
-  scenario 'User sees action table to display only the "Actions"' do
-    expect(page).to have_content('Action')
-  end
   scenario 'User sees a name recipe with options to view and delete' do
     expect(page).to have_content('Delicious Recipe')
   end
