@@ -1,10 +1,13 @@
 <h1 class='text-3xl font-bold text-gray-400 text-center mt-5'>SHOPPING LIST</h1>
-<% @items.each do |item| %>
+<% @shopping_list.each do |item| %>
+
 <% end %>
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-lg-8">
-      <h3 class="font-bold text-gray-400">Amount of food items to buy: <%= @items.size %></h3>
+      
+<h3 class="font-bold text-gray-400">Amount of food items to buy: <%= @shopping_list.size %></h3>
+
       <h3 class="font-bold text-gray-400">Total value of food needed: <%= number_to_currency(@total_price) %></h3>
       <div class="bg-white shadow-md rounded my-6">
       </div>
@@ -23,7 +26,8 @@
         </tr>
       </thead>
       <tbody class="text-gray-600 text-sm font-light">
-        <% @items.each do |item| %>
+        <% @shopping_list.each do |item| %>
+
           <tr class="border-b border-gray-200 hover:bg-gray-100">
             <td class="py-3 px-6 text-left whitespace-nowrap">
               <div class="flex items-center">
