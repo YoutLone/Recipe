@@ -35,6 +35,13 @@ class NewRecipesController < ApplicationController
     end
   end
 
+  def make_public
+    @recipe = NewRecipe.find(params[:id])
+    @recipe.update(public: !@recipe.public)
+    render json: { public: @recipe.public }
+    head :no_content
+  end
+
   def destroy
     @recipe = NewRecipe.find(params[:id])
     @recipe.destroy

@@ -9,7 +9,8 @@
         </div>
         <div class="form-check form-switch me-5">
           <% if can? :manage, @recipe %>
-            <%= button_to toggle_public_path(id: @recipe.id), method: :post, data: { turbo: false }, class: "toggle-button" do %>
+            <%= button_to make_public_user_new_recipe_path(id: @recipe), method: :post, data: { turbo: false }, class: "toggle-button" do %>
+
               <% if @recipe.public %>
                 <input type="checkbox" id="toggle-example-checked" class="form-check-input" checked>
               <% else %>
