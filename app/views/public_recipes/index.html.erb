@@ -1,20 +1,20 @@
 <div class="container text-center mt-5">
-  <div class="container p-4 bg-light rounded shadow">
-    <h1>Public Recipes</h1>
-    <% @public_recipes.each do |recipe| %>
-      <div class="recipe my-4 p-3 bg-light d-flex">
-        <div class="name flex-grow-1">
-          <h2><%= link_to "#{recipe.name}", recipe %></h2>
-          <p class="mb-0"><%= "By: #{recipe.user.name}" %></p>
+  <h1 class="mb-4">Public Recipes</h1>
+  <% @public_recipes.each do |recipe| %>
+    <div class="container p-4 bg-light rounded shadow mb-4 col-md-8">
+      <div class="recipe my-4 p-3 bg-light d-flex justify-content-between align-items-center">
+        <div class="name">
+          <h2 class="mb-0 ms-4"><%= link_to "#{recipe.name}", recipe %></h2>
+          <p class="mb-0 ms-4"><%= "By: #{recipe.user.name}" %></p>
         </div>
-        <div class="items">
-        <% @recipe_foods = RecipeFood.joins(food: [:user], new_recipe: [:user]).where(foods: { user_id: recipe.user_id }, new_recipes: { user_id: recipe.user_id }) %>
-        <% @total_items = @recipe_foods.where(recipe_id: recipe.id).count %>
-        <% @total_cost = @recipe_foods.where(recipe_id: recipe.id).sum('foods.quantity * foods.price') %>
-        <p class="mb-0">Total Food Items: <%= @total_items %></p>
-        <p>Total Price: <%= number_to_currency @total_cost %></p>
+        <div class="items text-right">
+          <% @recipe_foods = RecipeFood.joins(food: [:user], new_recipe: [:user]).where(foods: { user_id: recipe.user_id }, new_recipes: { user_id: recipe.user_id }) %>
+          <% @total_items = @recipe_foods.where(recipe_id: recipe.id).count %>
+          <% @total_cost = @recipe_foods.where(recipe_id: recipe.id).sum('foods.quantity * foods.price') %>
+          <p class="mb-0 me-4">Total Food Items: <%= @total_items %></p>
+          <p class="me-4">Total Price: <%= number_to_currency @total_cost %></p>
+        </div>
       </div>
-      </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>
