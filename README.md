@@ -105,7 +105,6 @@ To setup and install this sample Recipe-App project, follow the below steps:
 
 - GitHub: [@YoutLone](https://github.com/YoutLone)
 - LinkedIn: [than-myo-htet-618b2524b](https://linkedin.com/in/than-myo-htet-618b2524b)
-- Twitter: [ThanMyoHte64860](https://twitter.com/ThanMyoHte64860)
 
 👤 **Jalloh**
 
