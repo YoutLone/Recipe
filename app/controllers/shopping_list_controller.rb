@@ -11,12 +11,12 @@ class ShoppingListController < ApplicationController
     foods.each do |food|
       missing_quantity = [recipe_food_quantities[food.id].to_i - food.quantity, 0].max
 
-      if missing_quantity.positive?
-        @shopping_list << {
-          food: food,
-          missing_quantity: missing_quantity
-        }
-      end
+      next unless missing_quantity.positive?
+
+      @shopping_list << {
+        food:,
+        missing_quantity:
+      }
     end
   end
 end
