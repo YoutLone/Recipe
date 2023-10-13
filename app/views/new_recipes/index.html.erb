@@ -1,43 +1,29 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-lg-10">
-      <%= link_to  "Create new Recipe", new_user_new_recipe_path(current_user), class: "btn btn-danger mb-4" %> 
-      <div class="card">
+      <%= link_to "Create new Recipe", new_user_new_recipe_path(current_user), class: "btn btn-success mb-4" %> 
+      
+      <% @recipes.each do |recipe| %>
+      <div class="card mb-4">
         <div class="card-body">
-          <table class="table">
-            <thead>     
-              <tr class="bg-light text-dark">
-                <th class="py-3 px-6 text-left">Recipe</th>
-                <th class="py-3 px-6 text-left">Description</th>
-                <th class="py-3 px-6 text-center">Action</th>
-              </tr> 
-            </thead>
-            <tbody class="text-gray-600 text-sm font-light">
-            <% @recipes.each do |recipe| %>
-              <tr>
-                <td class="py-3 px-6 text-left">
-                  <div class="flex items-center">
-                    <span class="text-gray-900 text-xl leading-tight font-medium">
-                      <%= link_to recipe.name, user_new_recipe_path(current_user, recipe), class: "text-primary" %>
-                    </span>
-                  </div>
-                </td>
-                <td class="py-3 px-6 text-left">
-                  <div class="flex items-center">
-                    <span class="badge bg-success"><%= recipe.description %></span>
-                  </div>
-                </td>
-                <td class="py-3 px-6 text-center">
-                  <%= button_to user_new_recipe_path(current_user, recipe), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" do %>
-                    Remove
-                  <% end %>
-                </td>
-              </tr>
-            <% end %>
-            </tbody>
-          </table>
+          <div class="row">
+            <div class="col-md-8">
+              <h5 class="card-title">
+                <%= link_to recipe.name, user_new_recipe_path(current_user, recipe), class: "text-primary" %>
+              </h5>
+              <%= button_to user_new_recipe_path(current_user, recipe), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger mt-2" do %>
+                Remove
+              <% end %>
+            </div>
+            <div class="col-md-4 text-center">
+              
+              <p class="card-text text-success"><%= recipe.description %></p>
+            </div>
+          </div>
         </div>
       </div>
+      <% end %>
+      
     </div>
   </div>
 </div>
