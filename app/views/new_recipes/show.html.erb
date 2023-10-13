@@ -27,7 +27,10 @@
           <% if @recipe.user_id == current_user.id %>
             <div class="flex-container my-5 pb-4">
               <%= link_to 'Generate shopping list', shopping_list_path, class: "btn btn-info" %>
-              <%= render 'ingredient' %>
+              <% if current_user.id == @recipe.user_id %>
+              <%= link_to 'Add Ingredient', new_user_new_recipe_recipe_food_path(current_user, @recipe), class: "btn btn-info" %>
+            <% end %>
+            
             </div>
           <% end %>
         </div>
